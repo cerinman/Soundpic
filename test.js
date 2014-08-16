@@ -1,3 +1,9 @@
+var spotifyApi = new SpotifyWebApi();
+
+var setPlayer = function(source){
+    $("#player").attr("src", source);
+}
+
 var play = function (event) {
     event.preventDefault();
 
@@ -7,11 +13,18 @@ var play = function (event) {
     $("#artist").val("");
     $("#song").val("");
 
-    var uri = "spotify:track:1mB6WKPsJRdkbI8bMPXa2C";
+    var embedurl = "https://embed.spotify.com/?uri=";
 
-    var newSource = "https://embed.spotify.com/?uri=" + uri; 
+    var newSource = "";
 
-    $("#player").attr("src", newSource);
+    spotifyApi.searchTracks(song).then(function(data){
+        if (data.tracks.items) {
+            newSource = embedurl + data.tracks.items[0].uri;
+            setPlayer(newSource);
+        }else{
+            alert("Song not found!");
+        };
+    })
 }
 
 $("form").on('submit', play)
