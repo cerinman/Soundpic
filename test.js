@@ -18,9 +18,24 @@ var play = function (event) {
     var newSource = "";
 
     spotifyApi.searchTracks(song).then(function(data){
+        var songs = [];
+
         if (data.tracks.items) {
-            newSource = embedurl + data.tracks.items[0].uri;
-            setPlayer(newSource);
+            each(data.tracks.items, function(song){
+                if (song.artists[0].name == artist) {
+                    songs.push(song);
+                };
+            })
+
+            if (songs.length > 0) {
+                console.log(song[0])
+                newSource = embedurl + songs[0].uri;
+                setPlayer(newSource);
+            }else{
+                newSource = embedurl + data.tracks.items[0].uri;
+                setPlayer(newSource);
+            };
+
         }else{
             alert("Song not found!");
         };
