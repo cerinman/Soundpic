@@ -1,5 +1,18 @@
 var spotifyApi = new SpotifyWebApi();
 
+var getLyrics = function(artist, song){
+    $.ajax({
+        url: '/lyrics',
+        type: "GET",
+        data: {
+            artist: artist,
+            song: song
+        }
+    }).done(function(data){
+        console.log(data);
+    })
+}
+
 var setPlayer = function(source){
     $("#player").attr("src", source);
 }
@@ -28,12 +41,13 @@ var play = function (event) {
             })
 
             if (songs.length > 0) {
-                console.log(song[0])
                 newSource = embedurl + songs[0].uri;
                 setPlayer(newSource);
+                getLyrics(artist, song);
             }else{
                 newSource = embedurl + data.tracks.items[0].uri;
                 setPlayer(newSource);
+                getLyrics(artist, song);
             };
 
         }else{
