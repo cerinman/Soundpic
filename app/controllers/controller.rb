@@ -1,8 +1,13 @@
-require 'sinatra'
-require 'HTTParty'
 
 get '/' do
-  response = HTTParty.get("http://lyricwiki.org/api.php?artist=Ellie%20Goulding&song=Burn&fmt=json")
+  erb :test
+end
+
+get '/lyrics' do
+  artist = params[:artist].split().join("%20")
+  url = "http://lyricwiki.org/api.php?artist=#{artist}&song=#{params[:song]}&fmt=json"
+
+  response = HTTParty.get(url)
 
   content_type :json
 

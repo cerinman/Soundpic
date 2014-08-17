@@ -2,11 +2,14 @@ var spotifyApi = new SpotifyWebApi();
 
 var getLyrics = function(artist, song){
     $.ajax({
-        url: '/localhost:4567',
-        type: "GET"
+        url: '/lyrics',
+        type: "GET",
+        data: {
+            artist: artist,
+            song: song
+        }
     }).done(function(data){
-        var stuff = JSON.parse(data);
-        console.log(stuff.song);
+        console.log(data);
     })
 }
 
