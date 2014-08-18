@@ -16,6 +16,9 @@ gem 'rake'
 gem 'shotgun'
 
 gem 'httparty'
+gem 'mechanize'
+gem 'nokogiri'
+gem 'spotify-client'
 
 group :test do
   gem 'shoulda-matchers'
