@@ -40,7 +40,7 @@ get '/art' do
     end
   end
 
-  content_type :html
+  content_type :json
 
-  images[1]
+  images.to_json
 end

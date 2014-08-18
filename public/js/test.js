@@ -30,8 +30,17 @@ var getArt = function(searchTerms){
             terms: searchTerms
         }
     }).done(function(data){
-        $("#player-wrapper").append(data);
+        each(data, function(img){
+            $("#player-wrapper").append(img);
+        })
+
+        // $("#player-wrapper").append(data);
     })
+}
+
+var parseLyrics = function(lyrics){
+    
+    getArt(data);
 }
 
 var getLyrics = function(artist, song){
@@ -43,7 +52,7 @@ var getLyrics = function(artist, song){
             song: song
         }
     }).done(function(data){
-        getArt(data);
+        parseLyrics(data);
     })
 }
 
