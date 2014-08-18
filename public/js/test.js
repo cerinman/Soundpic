@@ -22,6 +22,18 @@ var getSongs = function(song, elementToAppendTo){
     })
 }
 
+var getArt = function(searchTerms){
+    $.ajax({
+        url: '/art',
+        type: "GET",
+        data: {
+            terms: searchTerms
+        }
+    }).done(function(data){
+        $("#player-wrapper").append(data);
+    })
+}
+
 var getLyrics = function(artist, song){
     $.ajax({
         url: '/lyrics',
@@ -32,15 +44,7 @@ var getLyrics = function(artist, song){
         }
     }).done(function(data){
         console.log(data);
-    })
-}
-
-var getArt = function(){
-    $.ajax({
-        url: '/art',
-        type: "GET"
-    }).done(function(data){
-        // console.log(data);
+        getArt(data);
     })
 }
 
@@ -55,7 +59,6 @@ var delegateSongSelection = function(event){
     if (event.target && event.target.className == "song") {
         setPlayer(event.target.id);
         getLyrics(event.target.dataset.artistname, event.target.dataset.songname);
-        getArt();
     };
 }
 
