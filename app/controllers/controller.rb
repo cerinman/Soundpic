@@ -20,8 +20,6 @@ get '/art' do
 
   parsed_terms = JSON.parse(params[:terms])
 
-  p parsed_terms["song"]
-
   a = Mechanize.new { |agent|
     agent.user_agent_alias = 'Mac Safari'
   }
@@ -35,6 +33,8 @@ get '/art' do
       art_page = link.click
 
       img_link = art_page.search("//img[@class='dev-content-full']").first
+
+      p img_link.xpath('//attributes')
 
       images << img_link.to_s
     end
