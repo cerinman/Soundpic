@@ -1,6 +1,6 @@
 
 
-var getSong = function(artist, song, elementToAppendTo){
+var getSongs = function(song, elementToAppendTo){
     var spotifyApi = new SpotifyWebApi();
 
     spotifyApi.searchTracks(song).then(function(data){
@@ -9,36 +9,28 @@ var getSong = function(artist, song, elementToAppendTo){
             elementToAppendTo.empty();
 
             each(data.tracks.items, function(track){
-                var item = "<div><span>" + track.artists[0].name + "</span> <a href='#' class='song' id='" + track.uri + "'>" + track.name + "</a></div>"
+                var item = "<div><span>" + track.artists[0].name
+                item = item + "</span> <a href='#' class='song' data-artistname='" + track.artists[0].name
+                item = item + "' data-songname='" + track.name
+                item = item + "' data-trackid='" + track.id
+                item = item + "' id='" + track.uri 
+                item = item + "'>" + track.name + "</a></div>"
 
                 elementToAppendTo.append(item);
             })
-        }else{
-            alert("No songs found with that name!");
-        };
+        }
+    })
+}
 
-        // if (data.tracks.items) {
-        //     each(data.tracks.items, function(song){
-        //         if (song.artists[0].name == artist) {
-        //             songs.push(song);
-        //         };
-        //     })
-
-        //     if (songs.length > 0) {
-        //         newSource = embedurl + songs[0].uri;
-        //         setPlayer(newSource);
-        //         getLyrics(artist, song);
-        //         getArt();
-        //     }else{
-        //         newSource = embedurl + data.tracks.items[0].uri;
-        //         setPlayer(newSource);
-        //         getLyrics(artist, song);
-        //         getArt();
-        //     };
-
-        // }else{
-        //     alert("Song not found!");
-        // };
+var getArt = function(searchTerms){
+    $.ajax({
+        url: '/art',
+        type: "GET",
+        data: {
+            terms: searchTerms
+        }
+    }).done(function(data){
+        $("#player-wrapper").append(data);
     })
 }
 
@@ -51,41 +43,34 @@ var getLyrics = function(artist, song){
             song: song
         }
     }).done(function(data){
-        // console.log(data);
+        getArt(data);
     })
 }
 
-var getArt = function(){
-    $.ajax({
-        url: '/art',
-        type: "GET"
-    }).done(function(data){
-        // console.log(data);
-    })
+var setPlayer = function(source){
+    var embedurl = "https://embed.spotify.com/?uri=" + source
+    $("#player").attr("src", embedurl);
+    $("#selection").empty();
 }
 
-var setPlayer = function(event){
+var delegateSongSelection = function(event){
     if (event.target && event.target.className == "song") {
-
-        var embedurl = "https://embed.spotify.com/?uri=" + event.target.id;
-
-        $("#player").attr("src", embedurl);
-        $("#selection").empty();
+        setPlayer(event.target.id);
+        getLyrics(event.target.dataset.artistname, event.target.dataset.songname);
     };
 }
 
-var play = function (event) {
+var search = function (event) {
     event.preventDefault();
 
     var selection = $("#selection");
-    var artist = $("#artist").val();
     var song = $("#song").val();
 
     $("#artist").val("");
     $("#song").val("");
 
-    getSong(artist, song, selection);
+    getSongs(song, selection);
 }
 
-$("form").on('submit', play)
-$("#selection").on('click', setPlayer);
+$("form").on('submit', search)
+$("#selection").on('click', delegateSongSelection);
