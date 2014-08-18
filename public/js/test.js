@@ -43,7 +43,6 @@ var getLyrics = function(artist, song){
             song: song
         }
     }).done(function(data){
-        console.log(data);
         getArt(data);
     })
 }
@@ -55,7 +54,6 @@ var setPlayer = function(source){
 }
 
 var delegateSongSelection = function(event){
-    console.log(event);
     if (event.target && event.target.className == "song") {
         setPlayer(event.target.id);
         getLyrics(event.target.dataset.artistname, event.target.dataset.songname);

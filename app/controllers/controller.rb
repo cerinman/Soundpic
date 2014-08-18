@@ -42,5 +42,5 @@ get '/art' do
 
   content_type :html
 
-  images[0]
+  images[1]
 end
