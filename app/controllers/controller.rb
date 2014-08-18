@@ -15,6 +15,19 @@ get '/lyrics' do
   return response.to_json
 end
 
-get '/song' do
+get '/art' do
 
+a = Mechanize.new { |agent|
+  agent.user_agent_alias = 'Mac Safari'
+}
+
+a.get('http://www.deviantart.com/') do |page|
+  search_result = page.form_with(:id => 'browse-search-box') do |search|
+    search.q = 'burn'
+  end.submit
+
+  search_result.links.each do |link|
+    
+  end
+end
 end
