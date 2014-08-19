@@ -20,14 +20,20 @@ get '/art' do
 
   if resources.any?
     resources[rand(0..(resources.length-1))].img_url
-  else
+  end
+end
+
+post '/art' do
+  resources = Resource.where(song_name: params[:song], song_artist: params[:artist])
+
+  if resources.count < 10
     a = Mechanize.new { |agent|
       agent.user_agent_alias = 'Mac Safari'
     }
 
     a.get('http://www.deviantart.com/digitalart/paintings/') do |page|
       search_result = page.form_with(:id => 'browse-search-box') do |search|
-        search.q = params[:term]
+        search.q = params[:terms]
       end.submit
 
       search_result.links_with(:class => "t").each do |link|
@@ -35,13 +41,9 @@ get '/art' do
 
         img_link = art_page.search("//img[@class='dev-content-full']")
 
-        Resource.create(song_name: params[:song], song_artist: params[:artist], search_term: params[:term], img_url: img_link.to_s)
+        Resource.create(song_name: params[:song], song_artist: params[:artist], img_url: img_link.to_s)
       end
     end
-
-    resources = Resource.where(song_name: params[:song], song_artist: params[:artist])
-
-    resources[rand(0..(resources.length-1))].img_url
   end
 end
 
