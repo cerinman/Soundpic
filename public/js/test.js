@@ -1,3 +1,4 @@
+  var CONJUCTIONS = ["oh", "all", "is", "with", "to", "too", "the", "from", "this", "that", "then", "the", "by", "be", "should", "would", "nor", "but", "or", "yet", "so", "else", "and", "unless", "less", "if", "in", "both", "either", "neither", "not", "whether", "I", "my", "we", "a", "of"];
 
 
 var getSongs = function(song, elementToAppendTo){
@@ -22,25 +23,43 @@ var getSongs = function(song, elementToAppendTo){
     })
 }
 
-var getArt = function(searchTerms){
+var getArt = function(searchTerm, song, artist){
     $.ajax({
         url: '/art',
         type: "GET",
         data: {
-            terms: searchTerms
+            term:   searchTerm,
+            song:   song,
+            artist: artist
         }
     }).done(function(data){
         each(data, function(img){
-            $("#player-wrapper").append(img);
+            // $("#artwork").append(img);
         })
-
-        // $("#player-wrapper").append(data);
     })
 }
 
 var parseLyrics = function(lyrics){
     
-    getArt(data);
+    lyrics_object = JSON.parse(lyrics);
+
+    terms = lyrics_object["lyrics"];
+
+    terms = terms.replace(/(\r\n|\n|\r)/gm, " ")
+
+    terms = terms.replace("  ", "")
+
+    terms = terms.split(" ")
+
+    terms.unshift(lyrics_object["song"])
+
+    terms.pop();
+
+    each(terms, function(term){
+        if ($.inArray(term.toLowerCase(), CONJUCTIONS) == -1) {
+            getArt(term.toLowerCase(), lyrics_object["song"], lyrics_object["artist"])
+        };
+    })
 }
 
 var getLyrics = function(artist, song){
