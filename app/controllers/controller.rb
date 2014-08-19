@@ -24,9 +24,7 @@ get '/art' do
 end
 
 post '/art' do
-  resources = Resource.where(song_name: params[:song], song_artist: params[:artist])
 
-  if resources.count < 10
     a = Mechanize.new { |agent|
       agent.user_agent_alias = 'Mac Safari'
     }
@@ -44,7 +42,7 @@ post '/art' do
         Resource.create(song_name: params[:song], song_artist: params[:artist], img_url: img_link.to_s)
       end
     end
-  end
+
 end
 
 
