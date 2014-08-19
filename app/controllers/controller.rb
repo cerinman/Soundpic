@@ -29,17 +29,20 @@ post '/art' do
       agent.user_agent_alias = 'Mac Safari'
     }
 
-    a.get('http://www.deviantart.com/digitalart/paintings/') do |page|
-      search_result = page.form_with(:id => 'browse-search-box') do |search|
-        search.q = params[:terms]
-      end.submit
+    params[:terms].each do |term|
 
-      search_result.links_with(:class => "t").each do |link|
-        art_page = link.click
+      a.get('http://www.deviantart.com/digitalart/paintings/landscapes/') do |page|
+        search_result = page.form_with(:id => 'browse-search-box') do |search|
+          search.q = term
+        end.submit
 
-        img_link = art_page.search("//img[@class='dev-content-full']")
+        search_result.links_with(:class => "t").each do |link|
+          art_page = link.click
 
-        Resource.create(song_name: params[:song], song_artist: params[:artist], img_url: img_link.to_s)
+          img_link = art_page.search("//img[@class='dev-content-full']")
+
+          Resource.create(song_name: params[:song], song_artist: params[:artist], img_url: img_link.to_s)
+        end
       end
     end
 

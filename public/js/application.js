@@ -94,18 +94,10 @@ var setPlayer = function(source){
   $("#selection").empty();
 }
 
-var timerTest = function(){
-  console.log("Now start showing the artwork")
-}
-
-var afterTimer = function(){
-  console.log("Save art to db")
-}
-
 var pauseShowingArtworkUntilDownloadStarted = function(artist, song){
   setInterval(function(){
-    showArtwork(artist, song)
-  }, 20000);
+    showArtwork(artist, song);
+  }, 10000);
 
   startScrapingArtwork(artist, song);
 }
