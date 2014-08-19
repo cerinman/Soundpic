@@ -1,3 +1,22 @@
-/*body{
-  background-image: url("http://fc06.deviantart.net/fs71/i/2014/013/c/8/burn_by_kovah-d7216b2.jpg");
-}*/
+body{
+  width: 80%;
+  margin: auto;
+}
+
+#player-wrapper{
+  width: 20%;
+  position: fixed;
+  z-index: 20;
+}
+
+#artwork{
+  width: 60%;
+}
+
+.float-left{
+  float: left;
+}
+
+.clear-fix{
+  clear: both;
+}
