@@ -33,9 +33,7 @@ var getArt = function(searchTerm, song, artist){
             artist: artist
         }
     }).done(function(data){
-        each(data, function(img){
-            // $("#artwork").append(img);
-        })
+        $("#artwork").empty().append(data)
     })
 }
 
@@ -57,7 +55,7 @@ var parseLyrics = function(lyrics){
 
     each(terms, function(term){
         if ($.inArray(term.toLowerCase(), CONJUCTIONS) == -1) {
-            getArt(term.toLowerCase(), lyrics_object["song"], lyrics_object["artist"])
+            setInterval(getArt(term.toLowerCase(), lyrics_object["song"], lyrics_object["artist"]), 3000000)
         };
     })
 }

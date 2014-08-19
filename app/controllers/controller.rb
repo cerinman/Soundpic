@@ -19,7 +19,7 @@ get '/art' do
   resources = Resource.where(song_name: params[:song], song_artist: params[:artist])
 
   if resources.any?
-    p resources[rand(0..(resources.length-1))].img_url
+    resources[rand(0..(resources.length-1))].img_url
   else
     a = Mechanize.new { |agent|
       agent.user_agent_alias = 'Mac Safari'
@@ -35,15 +35,14 @@ get '/art' do
 
         img_link = art_page.search("//img[@class='dev-content-full']")
 
-        Resource.create(song_name: params[:song], song_artist: params[:artist], search_term: params[:term], img_url: img_link.to_json)
+        Resource.create(song_name: params[:song], song_artist: params[:artist], search_term: params[:term], img_url: img_link.to_s)
       end
     end
 
     resources = Resource.where(song_name: params[:song], song_artist: params[:artist])
 
-    p resources[rand(0..(resources.length-1))].img_url
+    resources[rand(0..(resources.length-1))].img_url
   end
-
 end
 
 
