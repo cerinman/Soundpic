@@ -115,7 +115,7 @@ soundPic.prototype = {
   },
 
   showLoadingPage: function(){
-    this.artworkElement.empty().append("<img src='http://fc06.deviantart.net/fs71/i/2013/243/9/4/ctrlpaintvasestudy_by_cerin-d6ki6w3.jpg'>");
+    this.artworkElement.empty().append("<h1>Loading Player and Images........</h1>");
   },
 
   songSelection: function(event){
