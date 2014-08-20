@@ -19,8 +19,9 @@ module Scrape
       counter = 0
 
       search_result.links_with(:class => "t").each do |link|
-        break unless counter <= 5
+        break unless counter <= 3
         counter += 1
+
         art_page = link.click
 
         img_link = art_page.search("//img[@class='dev-content-full']")
