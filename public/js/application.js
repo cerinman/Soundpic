@@ -57,6 +57,7 @@ soundPic.prototype = {
       lyrics_object    = JSON.parse(data);
       var terms        = lyrics_object["lyrics"];
       var lyrics       = lyricsHelper.parseLyrics(terms)
+      console.log(lyrics)
       that.saveArt(lyrics, song, artist);
     })
   },
@@ -130,22 +131,28 @@ var lyricsHelper = {
   wordFilter: ["oh", "all", "is", "with", "to", "too", "the", "from", "this", "that", "then", "the", "by", "be", "should", "would", "nor", "but", "or", "yet", "so", "else", "and", "unless", "less", "if", "in", "both", "either", "neither", "not", "whether", "I", "my", "we", "a", "of"],
 
   removeWhiteSpace: function(string){
-    return string.replace("  ", "")
+    var newString = string.replace("  ", "")
+    return newString
   },
 
   removeNewLines: function(string){
-    return string.replace(/(\r\n|\n|\r)/gm, " ")
+    var newString = string.replace(/(\r\n|\n|\r)/gm, " ")
+    return newString
   },
 
   splitStringIntoArray: function(string){
-    return string.split(" ")
+    var newArray = string.split(" ")
+    newArray.pop()
+    return newArray
   },
 
   removeUnWantedWords: function(wordArray){
     var words = [];
 
+    var that = this
+
     each(wordArray, function(word){
-      if ($.inArray(word.toLowerCase(), this.wordFilter) == -1) {
+      if ($.inArray(word.toLowerCase(), that.wordFilter) == -1) {
         words.push(word);
       };
     })
@@ -154,13 +161,11 @@ var lyricsHelper = {
   },
 
   parseLyrics: function(string){
-    string = this.removeNewLines(string);
-    string = this.removeWhiteSpace(string);
-
-    var wordArray = this.splitStringIntoArray(string);
-    wordArray = this.removeUnWantedWords(wordArray);
-
-    return wordArray;
+    var removedNewLines = this.removeNewLines(string);
+    var strippedString = this.removeWhiteSpace(removedNewLines);
+    var wordArray = this.splitStringIntoArray(strippedString);
+    var finalArray = this.removeUnWantedWords(wordArray);
+    return finalArray;
   }
 }
 
