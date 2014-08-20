@@ -1,13 +1,14 @@
-var soundPic = function(){
+var soundPic = function(picRotateDelay){
   this.searchFormElement = $("form")
   this.songSelectionElement = $("#selection")
   this.songInputElement = $("#song")
   this.artworkElement = $("#artwork")
   this.playerElement = $("#player")
+  this.picRotateDelay = picRotateDelay
 }
 
 soundPic.prototype = {
-  
+
   getSongs: function(song, elementToAppentTo){
     var spotifyApi = new SpotifyWebApi();
 
@@ -92,7 +93,7 @@ soundPic.prototype = {
     var that = this
     setInterval(function(){
       that.showArtwork(artist, song);
-    }, 10000);
+    }, that.picRotateDelay);
 
     this.startScrapingArtwork(artist, song);
   },
