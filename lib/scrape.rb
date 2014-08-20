@@ -24,6 +24,13 @@ module Scrape
 
         art_page = link.click
 
+        # Gets the Author and his/her's link to their profile
+        author_link = art_page.at('.username-with-symbol a')
+
+        # Gets the title and its link for the art in question
+        title_link = art_page.at('.dev-title-container h1 a')
+
+        # Gets the img link for the art in question
         img_link = art_page.search("//img[@class='dev-content-full']")
 
         #Save resulting img tags to DB
