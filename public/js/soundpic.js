@@ -82,8 +82,19 @@ soundPic.prototype = {
       var img_details = JSON.parse(data);
 
       var author_details = img_details["deviation_link"] + " by " + img_details["author_link"]
+      var image = $(img_details["img_url"])
 
-      that.artworkElement.empty().append(img_details["img_url"]);
+      if (parseInt(image.attr("width")) > 1280 || parseInt(image.attr("height")) > 800) {
+
+        var width = parseInt(image.attr("width"))
+        var height = parseInt(image.attr("height"))
+
+        var ratio = imageHelper.calculateAspectRatioFit(width, height, 1280, 800)
+        image.attr("width", ratio.width)
+        image.attr("height", ratio.height)
+      };
+    
+      that.artworkElement.empty().append(image);
       that.artTitle.empty().append(author_details);
     })
   },
