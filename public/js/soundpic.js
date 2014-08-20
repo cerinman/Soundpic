@@ -78,7 +78,8 @@ soundPic.prototype = {
         song: song
       }
     }).done(function(data){
-      that.artworkElement.empty().append(data);
+      var img_details = JSON.parse(data);
+      that.artworkElement.empty().append(img_details["img_url"]);
     })
   },
 

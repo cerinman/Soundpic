@@ -19,7 +19,7 @@ get '/art' do
   resources = Resource.where(song_name: params[:song], song_artist: params[:artist])
 
   if resources.any?
-    resources[rand(0..(resources.length-1))].img_url
+    resources[rand(0..(resources.length-1))].to_json
   end
 end
 

@@ -34,7 +34,7 @@ module Scrape
         img_link = art_page.search("//img[@class='dev-content-full']")
 
         #Save resulting img tags to DB
-        Resource.create(search_term: term, song_name: song, song_artist: artist, img_url: img_link.to_s, deviation_link: title_link, author_link: author_link)
+        Resource.create(search_term: term, song_name: song, song_artist: artist, img_url: img_link.to_s, deviation_link: title_link.to_s, author_link: author_link.to_s)
       end
     end
   end
