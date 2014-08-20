@@ -1,25 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- 
-    normalize.css removes cross-browser differences in defaults, e.g.,
-    differences in how form elements appear between Firefox and IE
-    See: http://necolas.github.com/normalize.css/
-  -->
   <link rel="stylesheet" href="/css/normalize.css">
-  <!--
-    application.css is where you put your styles
-  -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/application.css">
-
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
   <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-  <title></title>
+  <title>Sound Pic</title>
 </head>
 <body>
+  <div class="navbar-wrapper">
+    <div class="container">
+      <div class="navbar navbar-inverse navbar-static-top bp-10" role="navigation">
+        <div class="container">
+          <div class="navbar-collapse collapse">
+            <form action="" role="form">
+              <div class="form-group">
+                <div class="col-sm-4 fl">
+                  <input type="text" name="song" id="song" placeholder="Song" class="form-control">
+                </div>
+                <div class="fl">
+                  <input type="submit" value="search" class="btn btn-primary btn-md">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="artTitle">
+    <h2>
+      <a href="http://gate-to-nowhere.deviantart.com/art/Reign-of-Fire-71798696">Reign of Fire by Gate-To-Nowhere</a>
+    </h2>
+  </div>
+  <div id="spotify-wrapper">
+    <iframe id="player" src="" width="200" frameborder="0" allowtransparency="true"></iframe>
+  </div>
+  <div id="selection">
+  
+  </div>
+  <div id="artwork">
+    
+  </div>
   <%= yield %>
   <script src="/js/spotify-web-api.js"></script>
-  <script src="/js/tommy.js"></script>
+  <script src="/js/tommy-lib.js"></script>
+  <script src="/js/lyrichelper.js"></script>
+  <script src="/js/soundpic.js"></script>
   <script src="/js/application.js"></script>
 </body>
 </html>

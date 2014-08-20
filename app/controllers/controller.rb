@@ -1,6 +1,6 @@
 
 get '/' do
-  erb :test
+  erb :player
 end
 
 get '/lyrics' do
@@ -24,28 +24,10 @@ get '/art' do
 end
 
 post '/art' do
-
-    a = Mechanize.new { |agent|
-      agent.user_agent_alias = 'Mac Safari'
-    }
-
-    params[:terms].each do |term|
-
-      a.get('http://www.deviantart.com/digitalart/paintings/landscapes/') do |page|
-        search_result = page.form_with(:id => 'browse-search-box') do |search|
-          search.q = term
-        end.submit
-
-        search_result.links_with(:class => "t").each do |link|
-          art_page = link.click
-
-          img_link = art_page.search("//img[@class='dev-content-full']")
-
-          Resource.create(song_name: params[:song], song_artist: params[:artist], img_url: img_link.to_s)
-        end
-      end
-    end
-
+  require_relative '../../lib/Scrape.rb'
+  params[:terms].each do |term|
+    Scrape::scrape_deviant_art_pics_by_search(term, params[:song], params[:artist], '/digitalart/paintings/landscapes/')
+  end
 end
 
 
