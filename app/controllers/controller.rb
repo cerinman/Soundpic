@@ -1,6 +1,6 @@
 
 get '/' do
-  erb :test
+  erb :player
 end
 
 get '/lyrics' do
