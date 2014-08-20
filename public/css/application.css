@@ -1,11 +1,31 @@
 html,
 body {
   height: 100%;
-  background-color: #333;
+  background-color: #1f2b33;
 }
 
 body {
   color: #fff;
   text-align: center;
   text-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
+
+.fl{
+  float: left;
+}
+
+#spotify-wrapper{
+  position: absolute;
+  top: 20px;
+  left: 65%;
+  z-index: 9999;
+}
+
+.bp-10{
+  padding-bottom: 10px;
+}
+
+img{
+  width: 80%;
+  box-shadow: 5px 5px 5px #222
 }

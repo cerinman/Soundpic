@@ -10,7 +10,36 @@
 
   <title>Sound Pic</title>
 </head>
-<body >
+<body>
+  <div class="navbar-wrapper">
+    <div class="container">
+      <div class="navbar navbar-inverse navbar-static-top  bp-10" role="navigation">
+        <div class="container">
+          <div class="navbar-collapse collapse">
+            <form action="" role="form">
+              <div class="form-group">
+                <div class="col-sm-6 fl">
+                  <input type="text" name="song" id="song" placeholder="Song" class="form-control">
+                </div>
+                <div class="fl">
+                  <input type="submit" value="search" class="btn btn-primary btn-md">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="spotify-wrapper">
+    <iframe id="player" src="" width="200" frameborder="0" allowtransparency="true"></iframe>
+  </div>
+  <div id="selection">
+  
+  </div>
+  <div id="artwork">
+    
+  </div>
   <%= yield %>
   <script src="/js/spotify-web-api.js"></script>
   <script src="/js/tommy-lib.js"></script>
