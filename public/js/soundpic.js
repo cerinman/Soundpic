@@ -4,6 +4,7 @@ var soundPic = function(picRotateDelay){
   this.songInputElement = $("#song")
   this.artworkElement = $("#artwork")
   this.playerElement = $("#player")
+  this.artTitle = $("#artTitle")
   this.picRotateDelay = picRotateDelay
 }
 
@@ -79,7 +80,11 @@ soundPic.prototype = {
       }
     }).done(function(data){
       var img_details = JSON.parse(data);
+
+      var author_details = img_details["deviation_link"] + " by " + img_details["author_link"]
+
       that.artworkElement.empty().append(img_details["img_url"]);
+      that.artTitle.empty().append(author_details);
     })
   },
 
