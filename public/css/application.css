@@ -16,8 +16,8 @@ body {
 
 #spotify-wrapper{
   position: absolute;
-  top: 20px;
-  left: 65%;
+  top: 40px;
+  left: 68%;
   z-index: 9999;
 }
 
@@ -25,7 +25,11 @@ body {
   padding-bottom: 10px;
 }
 
+.artTitles{
+  text-align: center;
+  width: 60%;
+}
+
 img{
-  width: 80%;
   box-shadow: 5px 5px 5px #222
 }
