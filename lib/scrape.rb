@@ -15,7 +15,12 @@ module Scrape
 
       #for all links on the resulting page, find the links that have a class of t
       #and follow them.  On followed page grab all img tags with class of dev-content-full
+      
+      counter = 0
+
       search_result.links_with(:class => "t").each do |link|
+        break unless counter <= 5
+        counter += 1
         art_page = link.click
 
         img_link = art_page.search("//img[@class='dev-content-full']")
