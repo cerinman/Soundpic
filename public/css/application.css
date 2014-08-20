@@ -16,13 +16,29 @@ body {
 
 #spotify-wrapper{
   position: absolute;
-  top: 20px;
+  top: 12px;
   left: 68%;
   z-index: 9999;
 }
 
+#selection{
+  width: 50%;
+  margin: auto;
+  text-align: left;
+}
+
 .bp-10{
   padding-bottom: 10px;
+}
+
+.padtd{
+  padding-right: 15px;
+  padding-bottom: 5px;
+}
+
+.titleRow{
+  background-color: #333;
+  padding: 10px;
 }
 
 img{
