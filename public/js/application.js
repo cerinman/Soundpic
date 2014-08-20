@@ -1,19 +1,20 @@
 
 var soundPic = function(){
-  wordFilter: ["oh", "all", "is", "with", "to", "too", "the", "from", "this", "that", "then", "the", "by", "be", "should", "would", "nor", "but", "or", "yet", "so", "else", "and", "unless", "less", "if", "in", "both", "either", "neither", "not", "whether", "I", "my", "we", "a", "of"],
-  searchForm: $("form"),
-  songSelection: $("#selection"),
-  songInput: $("#song")
+  this.searchFormElement = $("form")
+  this.songSelectionElement = $("#selection")
+  this.songInputElement = $("#song")
+  this.artworkElement = $("#artwork")
+  this.playerElement = $("#player")
 }
 
-soundPic.prototype {
-  getSongs: function(song, elementToAppendTo){
+soundPic.prototype = {
+  getSongs: function(song, elementToAppentTo){
     var spotifyApi = new SpotifyWebApi();
 
     spotifyApi.searchTracks(song).then(function(data){
         
       if (data.tracks.items) {
-        elementToAppendTo.empty();
+        elementToAppentTo.empty();
 
         each(data.tracks.items, function(track){
           var item = "<div><span>" + track.artists[0].name
@@ -23,7 +24,7 @@ soundPic.prototype {
           item = item + "' id='" + track.uri 
           item = item + "'>" + track.name + "</a></div>"
 
-          elementToAppendTo.append(item);
+          elementToAppentTo.append(item);
         })
       }
     })
@@ -41,47 +42,33 @@ soundPic.prototype {
     })
   },
 
-  parseLyrics: function(lyrics){
-    
-    lyrics_object = JSON.parse(lyrics);
+  parseAndScrape: function(artist, song){
 
-    var terms = lyrics_object["lyrics"];
+    var that = this
 
-    terms = terms.replace(/(\r\n|\n|\r)/gm, " ")
-
-    terms = terms.replace("  ", "")
-
-    terms = terms.split(" ")
-
-    terms.unshift(lyrics_object["song"])
-
-    terms.pop();
-
-    var finalTerms = [];
-
-    each(terms, function(term){
-      if ($.inArray(term.toLowerCase(), WORD_FILTER) == -1) {
-        finalTerms.push(term);
-      };
+    $.ajax({
+      url: '/lyrics',
+      type: "GET",
+      data: {
+        artist: artist,
+        song: song
+      }
+    }).done(function(data){
+      lyrics_object    = JSON.parse(data);
+      var terms        = lyrics_object["lyrics"];
+      var lyrics       = lyricsHelper.parseLyrics(terms)
+      that.saveArt(lyrics, song, artist);
     })
-
-    saveArt(finalTerms, lyrics_object["song"], lyrics_object["artist"])
   },
 
   startScrapingArtwork: function(artist, song){
-    $.ajax({
-      url: '/art',
-      type: "GET",
-      data: {
-        artist: artist,
-        song: song
-      }
-    }).done(function(data){
-      $("#artwork").empty().append(data);
-    })
+    this.parseAndScrape(artist, song)
   },
 
   showArtwork: function(artist, song){
+
+    var that = this
+
     $.ajax({
       url: '/art',
       type: "GET",
@@ -90,47 +77,94 @@ soundPic.prototype {
         song: song
       }
     }).done(function(data){
-      $("#artwork").empty().append(data);
+      that.artworkElement.empty().append(data);
     })
   },
 
   setPlayer: function(source){
     var embedurl = "https://embed.spotify.com/?uri=" + source
-    $("#player").attr("src", embedurl);
-    $("#selection").empty();
+    this.playerElement.attr("src", embedurl);
+    this.songSelectionElement.empty();
   },
 
   pauseShowingArtworkUntilDownloadStarted: function(artist, song){
+    var that = this
     setInterval(function(){
-      showArtwork(artist, song);
+      that.showArtwork(artist, song);
     }, 10000);
 
-    startScrapingArtwork(artist, song);
+    this.startScrapingArtwork(artist, song);
   },
 
   showLoadingPage: function(){
-    $("#artwork").empty().append("<img src='http://fc06.deviantart.net/fs71/i/2013/243/9/4/ctrlpaintvasestudy_by_cerin-d6ki6w3.jpg'>");
+    this.artworkElement.empty().append("<img src='http://fc06.deviantart.net/fs71/i/2013/243/9/4/ctrlpaintvasestudy_by_cerin-d6ki6w3.jpg'>");
   },
 
   songSelection: function(event){
     event.preventDefault();
     if (event.target && event.target.className == "song") {
-      setPlayer(event.target.id);
-      showLoadingPage();
-      pauseShowingArtworkUntilDownloadStarted(event.target.dataset.artistname, event.target.dataset.songname);
+      this.setPlayer(event.target.id);
+      this.showLoadingPage();
+      this.pauseShowingArtworkUntilDownloadStarted(event.target.dataset.artistname, event.target.dataset.songname);
     };
   },
 
   search: function (event) {
     event.preventDefault();
-    this.getSongs(this.songInput.val(), this.songSelection);
-    this.songInput("");
+    this.getSongs(this.songInputElement.val(), this.songSelectionElement);
+    this.songInputElement.val("");
   },
 
   bindEvents: function(){
-    this.searchForm.on('submit', search)
-    this.songSelection.on('click', this.songSelection);
+    this.searchFormElement.on('submit', this.search.bind(this))
+    this.songSelectionElement.on('click', this.songSelection.bind(this));
+  },
+
+  run: function(){
+    this.bindEvents();
   }
 }
 
+//Helper functions for parsing lyrics string
+var lyricsHelper = {
+  wordFilter: ["oh", "all", "is", "with", "to", "too", "the", "from", "this", "that", "then", "the", "by", "be", "should", "would", "nor", "but", "or", "yet", "so", "else", "and", "unless", "less", "if", "in", "both", "either", "neither", "not", "whether", "I", "my", "we", "a", "of"],
 
+  removeWhiteSpace: function(string){
+    return string.replace("  ", "")
+  },
+
+  removeNewLines: function(string){
+    return string.replace(/(\r\n|\n|\r)/gm, " ")
+  },
+
+  splitStringIntoArray: function(string){
+    return string.split(" ")
+  },
+
+  removeUnWantedWords: function(wordArray){
+    var words = [];
+
+    each(wordArray, function(word){
+      if ($.inArray(word.toLowerCase(), this.wordFilter) == -1) {
+        words.push(word);
+      };
+    })
+
+    return words
+  },
+
+  parseLyrics: function(string){
+    string = this.removeNewLines(string);
+    string = this.removeWhiteSpace(string);
+
+    var wordArray = this.splitStringIntoArray(string);
+    wordArray = this.removeUnWantedWords(wordArray);
+
+    return wordArray;
+  }
+}
+
+//Create and run the app
+app = new soundPic();
+
+app.run();
