@@ -26,7 +26,7 @@ end
 post '/art' do
   require_relative '../../lib/Scrape.rb'
   params[:terms].each do |term|
-    Scrape::scrape_deviant_art_pics_by_search(term, params[:song], params[:artist], '/digitalart/paintings/landscapes/')
+    Scrape.scrape_deviant_art_pics_by_search(term, params[:song], params[:artist], '/digitalart/paintings/landscapes/')
   end
 end
 

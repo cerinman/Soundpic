@@ -1,6 +1,6 @@
 
 module Scrape
-  def Scrape.scrape_deviant_art_pics_by_search(term, song, artist, category)
+  def self.scrape_deviant_art_pics_by_search(term, song, artist, category)
     base_uri = 'http://www.deviantart.com'
 
     a = Mechanize.new { |agent|
