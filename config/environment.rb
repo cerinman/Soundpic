@@ -23,6 +23,8 @@ require 'httparty'
 require 'mechanize'
 require 'nokogiri'
 require 'spotify-client'
+require 'sidekiq'
+require 'redis'
 
 
 # Some helper constants for path-centric logic

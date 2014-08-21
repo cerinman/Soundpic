@@ -1,5 +1,5 @@
 var lyricsHelper = {
-  wordFilter: ["oh", "all", "is", "with", "to", "too", "the", "from", "this", "that", "then", "the", "by", "be", "should", "would", "nor", "but", "or", "yet", "so", "else", "and", "unless", "less", "if", "in", "both", "either", "neither", "not", "whether", "i", "my", "we", "a", "of", "it's", "me?", "we'll", "i'll", "ass", "bitch", "dick", "fuck", "shit", "they'll"],
+  wordFilter: ["see", "'cause", "don't", "have", "about", "cause", "got", "we're", "they", "they're", "us", "it", "what", "oh", "all", "is", "did", "with", "to", "too", "the", "from", "this", "that", "then", "the", "by", "be", "should", "would", "could", "nor", "but", "or", "yet", "so", "else", "and", "unless", "less", "if", "in", "both", "either", "neither", "not", "whether", "i", "my", "we", "a", "of", "it's", "me?", "we'll", "i'll", "ass", "bitch", "dick", "fuck", "shit", "they'll"],
 
   removeWhiteSpace: function(string){
     var newString = string.replace("  ", "")
