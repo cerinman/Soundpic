@@ -52,6 +52,7 @@ soundPic.prototype = {
       lyrics_object    = JSON.parse(data);
       var terms        = lyrics_object["lyrics"];
       var lyrics       = lyricsHelper.parseLyrics(terms, song)
+      console.log(lyrics);
       that.saveArt(lyrics, song, artist);
     })
   },
