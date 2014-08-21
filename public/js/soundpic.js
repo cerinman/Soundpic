@@ -74,13 +74,18 @@ soundPic.prototype = {
     }).done(function(data){
       var img_details = JSON.parse(data);
 
-      var author_details = img_details["deviation_link"] + " by " + img_details["author_link"]
+      var deviation_link = $(img_details["deviation_link"])
+      var author_link = $(img_details["author_link"])
+
+      deviation_link.attr("target", "_blank")
+      author_link.attr("target", "_blank")
+
       var image = $(img_details["img_url"])
 
-      if (parseInt(image.attr("width")) > 1280 || parseInt(image.attr("height")) > 800) {
+      var width = parseInt(image.attr("width"))
+      var height = parseInt(image.attr("height"))
 
-        var width = parseInt(image.attr("width"))
-        var height = parseInt(image.attr("height"))
+      if (width > 1280 || height > 800) {
 
         var ratio = imageHelper.calculateAspectRatioFit(width, height, 1280, 800)
         image.attr("width", ratio.width)
@@ -88,7 +93,7 @@ soundPic.prototype = {
       };
     
       that.artworkElement.empty().append(image);
-      that.artTitle.empty().append(author_details);
+      that.artTitle.empty().append(deviation_link, " by ", author_link);
     })
   },
 
