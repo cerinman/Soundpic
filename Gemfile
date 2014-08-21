@@ -19,6 +19,8 @@ gem 'httparty'
 gem 'mechanize'
 gem 'nokogiri'
 gem 'spotify-client'
+gem 'sidekiq'
+gem 'redis'
 
 group :test do
   gem 'shoulda-matchers'

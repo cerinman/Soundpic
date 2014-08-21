@@ -1,6 +1,7 @@
 
-module Scrape
-  def self.scrape_deviant_art_pics_by_search(term, song, artist, category)
+class Scrape
+  include Sidekiq::Worker
+  def perform(term, song, artist, category)
     base_uri = 'http://www.deviantart.com'
 
     a = Mechanize.new { |agent|
