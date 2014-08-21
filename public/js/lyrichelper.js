@@ -1,5 +1,5 @@
 var lyricsHelper = {
-  wordFilter: ["oh", "all", "is", "with", "to", "too", "the", "from", "this", "that", "then", "the", "by", "be", "should", "would", "nor", "but", "or", "yet", "so", "else", "and", "unless", "less", "if", "in", "both", "either", "neither", "not", "whether", "I", "my", "we", "a", "of", "it's", "me?", "we'll", "i'll", "ass", "bitch", "dick", "fuck", "shit", "they'll"],
+  wordFilter: ["oh", "all", "is", "with", "to", "too", "the", "from", "this", "that", "then", "the", "by", "be", "should", "would", "nor", "but", "or", "yet", "so", "else", "and", "unless", "less", "if", "in", "both", "either", "neither", "not", "whether", "i", "my", "we", "a", "of", "it's", "me?", "we'll", "i'll", "ass", "bitch", "dick", "fuck", "shit", "they'll"],
 
   removeWhiteSpace: function(string){
     var newString = string.replace("  ", "")
@@ -31,11 +31,12 @@ var lyricsHelper = {
     return words
   },
 
-  parseLyrics: function(string){
+  parseLyrics: function(string, songTitle){
     var removedNewLines = this.removeNewLines(string);
     var strippedString = this.removeWhiteSpace(removedNewLines);
     var wordArray = this.splitStringIntoArray(strippedString);
     var finalArray = this.removeUnWantedWords(wordArray);
+    finalArray.unshift(songTitle);
     return finalArray;
   }
 }
