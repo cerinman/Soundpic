@@ -113,7 +113,7 @@ soundPic.prototype = {
   },
 
   showLoadingPage: function(){
-    this.artworkElement.empty().append("<h1>Loading Player and Images........</h1>");
+    this.artworkElement.empty().append("<h1>Loading Player and Images <span class='fa fa-cog fa-spin'></span></h1>");
   },
 
   songSelection: function(event){
