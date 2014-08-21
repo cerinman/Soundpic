@@ -20,7 +20,7 @@ class Scrape
       counter = 0
 
       search_result.links_with(:class => "t").each do |link|
-        break unless counter <= 3
+        break unless counter <= 5
         counter += 1
 
         art_page = link.click
