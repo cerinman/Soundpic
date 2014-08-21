@@ -1,15 +1,15 @@
   var htmlHelper = {
     buildSongList: function(tracks){
       var item = "<div>"
-      item = item + "<table class='table table-condensed'>"
-      item = item + "<tr>"
+      item = item + "<table class='table table-condensed table-hover'>"
+      item = item + "<tr class='info'>"
       item = item + "<td>Artist</td>"
       item = item + "<td>Song Title</td>"
       item = item + "</tr>"
 
       each(tracks.items, function(track){
         item = item + "<tr>"
-        item = item + "<td class='padtd'>"
+        item = item + "<td>"
         item = item + track.artists[0].name
         item = item + "</td>"
         item = item + "<td>"

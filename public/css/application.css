@@ -15,7 +15,7 @@ body {
 }
 
 .ubuntuFontLarge{
-  margin-top: 8px;
+  margin-top: 5px;
   font-size: 2em;
   font-family: 'Ubuntu', sans-serif;
 }
@@ -27,7 +27,7 @@ body {
 
 #spotify-wrapper{
   position: absolute;
-  top: 10px;
+  top: 5px;
   left: 68%;
   z-index: 9999;
 }
@@ -51,6 +51,9 @@ body {
   background-color: #2a5d81;
   padding: 10px;
   margin-bottom: 10px;
+}
+
+.gray{
 }
 
 img{
