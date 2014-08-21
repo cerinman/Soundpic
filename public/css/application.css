@@ -14,17 +14,50 @@ body {
   float: left;
 }
 
+.ubuntuFontLarge{
+  margin-top: 5px;
+  font-size: 2em;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.ubuntuFont{
+  font-size: 1em;
+  font-family: 'Ubuntu', sans-serif;
+}
+
 #spotify-wrapper{
   position: absolute;
-  top: 20px;
+  top: 5px;
   left: 68%;
   z-index: 9999;
+}
+
+#selection{
+  width: 50%;
+  margin: auto;
+  text-align: left;
 }
 
 .bp-10{
   padding-bottom: 10px;
 }
 
+.padtd{
+  padding-right: 15px;
+  padding-bottom: 5px;
+}
+
+.titleRow{
+  background-color: #2a5d81;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.gray{
+  background-color: #555;
+}
+
 img{
   box-shadow: 5px 5px 5px #222;
+  border: 4px solid black;
 }

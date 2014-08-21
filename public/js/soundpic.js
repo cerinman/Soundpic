@@ -4,6 +4,7 @@ var soundPic = function(picRotateDelay){
   this.songInputElement = $("#song")
   this.artworkElement = $("#artwork")
   this.playerElement = $("#player")
+  this.artTitle = $("#artTitle")
   this.picRotateDelay = picRotateDelay
 }
 
@@ -17,16 +18,9 @@ soundPic.prototype = {
       if (data.tracks.items) {
         elementToAppentTo.empty();
 
-        each(data.tracks.items, function(track){
-          var item = "<div><span>" + track.artists[0].name
-          item = item + "</span> <a href='#' class='song' data-artistname='" + track.artists[0].name
-          item = item + "' data-songname='" + track.name
-          item = item + "' data-trackid='" + track.id
-          item = item + "' id='" + track.uri 
-          item = item + "'>" + track.name + "</a></div>"
+        var list = htmlHelper.buildSongList(data.tracks)
 
-          elementToAppentTo.append(item);
-        })
+        elementToAppentTo.append(list);
       }
     })
   },
@@ -57,7 +51,7 @@ soundPic.prototype = {
     }).done(function(data){
       lyrics_object    = JSON.parse(data);
       var terms        = lyrics_object["lyrics"];
-      var lyrics       = lyricsHelper.parseLyrics(terms)
+      var lyrics       = lyricsHelper.parseLyrics(terms, song)
       that.saveArt(lyrics, song, artist);
     })
   },
@@ -78,7 +72,28 @@ soundPic.prototype = {
         song: song
       }
     }).done(function(data){
-      that.artworkElement.empty().append(data);
+      var img_details = JSON.parse(data);
+
+      var deviation_link = $(img_details["deviation_link"])
+      var author_link = $(img_details["author_link"])
+
+      deviation_link.attr("target", "_blank")
+      author_link.attr("target", "_blank")
+
+      var image = $(img_details["img_url"])
+
+      var width = parseInt(image.attr("width"))
+      var height = parseInt(image.attr("height"))
+
+      if (width > 1280 || height > 800) {
+
+        var ratio = imageHelper.calculateAspectRatioFit(width, height, 1280, 800)
+        image.attr("width", ratio.width)
+        image.attr("height", ratio.height)
+      };
+    
+      that.artworkElement.empty().append(image);
+      that.artTitle.empty().append(deviation_link, " by ", author_link);
     })
   },
 
@@ -90,7 +105,7 @@ soundPic.prototype = {
 
   pauseShowingArtworkUntilDownloadStarted: function(artist, song){
     var that = this
-    setInterval(function(){
+    var artTimer = setInterval(function(){
       that.showArtwork(artist, song);
     }, that.picRotateDelay);
 
@@ -98,7 +113,7 @@ soundPic.prototype = {
   },
 
   showLoadingPage: function(){
-    this.artworkElement.empty().append("<img src='http://fc06.deviantart.net/fs71/i/2013/243/9/4/ctrlpaintvasestudy_by_cerin-d6ki6w3.jpg'>");
+    this.artworkElement.empty().append("<h1>Loading Player and Images <span class='fa fa-cog fa-spin'></span></h1>");
   },
 
   songSelection: function(event){

@@ -4,51 +4,81 @@
   <link rel="stylesheet" href="/css/normalize.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/application.css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href='http://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
   <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-  <title>Sound Pic</title>
+  <title>SOUNDPic</title>
 </head>
 <body>
   <div class="navbar-wrapper">
-    <div class="container">
-      <div class="navbar navbar-inverse navbar-static-top bp-10" role="navigation">
-        <div class="container">
-          <div class="navbar-collapse collapse">
-            <form action="" role="form">
-              <div class="form-group">
-                <div class="col-sm-4 fl">
-                  <input type="text" name="song" id="song" placeholder="Song" class="form-control">
+      <div class="container">
+        <div class="navbar navbar-inverse navbar-static-top bp-10" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a href="/" class="navbar-brand ubuntuFontLarge">SOUN<span class="fa fa-rss"></span>Pic</a>
+            </div>
+            <div class="navbar-collapse collapse">
+              <form action="" role="form">
+                <div class="form-group">
+                  <div class="col-sm-4 fl">
+                    <input type="text" name="song" id="song" placeholder="Song or Artist" class="form-control">
+                  </div>
+                  <div class="fl">
+                    <input type="submit" value="search" class="btn btn-primary btn-md">
+                  </div>
                 </div>
-                <div class="fl">
-                  <input type="submit" value="search" class="btn btn-primary btn-md">
-                </div>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div id="artTitle">
-    <h2>
-      <a href="http://gate-to-nowhere.deviantart.com/art/Reign-of-Fire-71798696">Reign of Fire by Gate-To-Nowhere</a>
+  <div>
+    <h2 id="artTitle">
+      
     </h2>
   </div>
   <div id="spotify-wrapper">
     <iframe id="player" src="" width="200" frameborder="0" allowtransparency="true"></iframe>
   </div>
-  <div id="selection">
+  <div id="selection" class="ubuntuFont">
   
   </div>
-  <div id="artwork">
-    
+  <br>
+  <div id="artwork" class="ubuntuFont">
+    <div class="container">
+      <div class="jumbotron gray">
+        <h2>Welcome to SOUN<span class="fa fa-rss"></span>Pic!</h2>
+        <p>
+          Please search for a song, play it, and sit back to see "all the things" that come up!
+        </p>
+        <p>
+          <img collect_rid="1:473549714" src="http://th09.deviantart.net/fs71/PRE/f/2014/218/8/f/god_of_fire_by_jjcanvas-d7txtaq.jpg" width="1192" height="670" alt="" class="dev-content-normal" style="width: 419px; height: 280px; top: 0px;">
+          <img collect_rid="1:387050763" src="http://th09.deviantart.net/fs70/PRE/f/2013/202/f/0/f0f7aab1e330d0b92d1182960292f3c3-d6efua3.jpg" width="1150" height="695" alt="" class="dev-content-normal" style="width: 419px; height: 280px; top: 0px;">
+        </p>
+        <p>
+          Powered By: <span class="fa fa-spotify"></span> Spotify and <span class="fa fa-deviantart"></span> Deviantart
+        </p>
+      </div>
+    </div>
   </div>
   <%= yield %>
+  <br><br>
   <script src="/js/spotify-web-api.js"></script>
   <script src="/js/tommy-lib.js"></script>
+  <script src="/js/htmlhelper.js"></script>
   <script src="/js/lyrichelper.js"></script>
+  <script src="/js/imagehelper.js"></script>
   <script src="/js/soundpic.js"></script>
   <script src="/js/application.js"></script>
 </body>

@@ -19,14 +19,14 @@ get '/art' do
   resources = Resource.where(song_name: params[:song], song_artist: params[:artist])
 
   if resources.any?
-    resources[rand(0..(resources.length-1))].img_url
+    resources[rand(0..(resources.length-1))].to_json
   end
 end
 
 post '/art' do
   require_relative '../../lib/Scrape.rb'
   params[:terms].each do |term|
-    Scrape::scrape_deviant_art_pics_by_search(term, params[:song], params[:artist], '/digitalart/paintings/landscapes/')
+    Scrape.scrape_deviant_art_pics_by_search(term, params[:song], params[:artist], '/digitalart/paintings/landscapes/')
   end
 end
 
