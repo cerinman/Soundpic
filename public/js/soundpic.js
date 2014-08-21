@@ -18,32 +18,9 @@ soundPic.prototype = {
       if (data.tracks.items) {
         elementToAppentTo.empty();
 
-        var item = "<div>"
-        item = item + "<table>"
-        item = item + "<tr class='titleRow'>"
-        item = item + "<td>Artist</td>"
-        item = item + "<td>Song Title</td>"
-        item = item + "</tr>"
+        var list = htmlHelper.buildSongList(data.tracks)
 
-        each(data.tracks.items, function(track){
-          item = item + "<tr>"
-          item = item + "<td class='padtd'>"
-          item = item + track.artists[0].name
-          item = item + "</td>"
-          item = item + "<td>"
-          item = item + "<a href='#' class='song' data-artistname='" + track.artists[0].name
-          item = item + "' data-songname='" + track.name
-          item = item + "' data-trackid='" + track.id
-          item = item + "' id='" + track.uri 
-          item = item + "'>" + track.name + "</a>"
-          item = item + "</td>"
-          item = item + "<tr>"
-        })
-
-        item = item + "</table>"
-        item = item + "</div>"
-
-        elementToAppentTo.append(item);
+        elementToAppentTo.append(list);
       }
     })
   },

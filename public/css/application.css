@@ -14,9 +14,20 @@ body {
   float: left;
 }
 
+.ubuntuFontLarge{
+  margin-top: 8px;
+  font-size: 2em;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.ubuntuFont{
+  font-size: 1em;
+  font-family: 'Ubuntu', sans-serif;
+}
+
 #spotify-wrapper{
   position: absolute;
-  top: 12px;
+  top: 10px;
   left: 68%;
   z-index: 9999;
 }
@@ -37,8 +48,9 @@ body {
 }
 
 .titleRow{
-  background-color: #333;
+  background-color: #2a5d81;
   padding: 10px;
+  margin-bottom: 10px;
 }
 
 img{
