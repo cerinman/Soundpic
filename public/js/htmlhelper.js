@@ -1,8 +1,8 @@
   var htmlHelper = {
     buildSongList: function(tracks){
       var item = "<div>"
-      item = item + "<table class='table table-condensed table-hover'>"
-      item = item + "<tr class='info'>"
+      item = item + "<table class='table table-condensed'>"
+      item = item + "<tr class='gray'>"
       item = item + "<td>Artist</td>"
       item = item + "<td>Song Title</td>"
       item = item + "</tr>"
