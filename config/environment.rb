@@ -51,8 +51,3 @@ Dir[APP_ROOT.join('lib', '*.rb')].each { |file| require file }
 
 # Set up the database and models
 require APP_ROOT.join('config', 'database')
-
-# Set up redis for sidekiq
-uri = URI.parse(ENV["REDISTOGO_URL"])
-REDIS = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
-Resque.redis = REDIS
